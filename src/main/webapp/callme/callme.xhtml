@@ -1,0 +1,32 @@
+<!-- ~ Copyright 2014 plivo-java-ee.org. Licensed under the Eclipse Public License version 1.0, available at http://www.eclipse.org/legal/epl-v10.html -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>demo speak</title>
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+		rel="stylesheet"></link>
+</h:head>
+<h:body style="padding:20px">
+
+	<form jsf:id="userform">
+
+
+		<div class="form-group">
+			<label for="number">Number</label> <input id="number" type="text"
+				class="form-control" placeholder="Number"
+				jsf:value="#{callmeController.number}" />
+		</div>
+		<div class="form-group">
+			<label for="message">Message</label>
+			<textarea id="message" class="form-control" placeholder="message"
+				jsf:value="#{callmeController.message}" />
+		</div>
+		<button type="Submit" class="btn btn-default btn-primary"
+			jsf:action="#{callmeController.callMe}">Submit</button>
+	</form>
+</h:body>
+</html>

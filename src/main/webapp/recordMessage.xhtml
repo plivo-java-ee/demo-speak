@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright 2014 plivo-java-ee.org. Licensed under the Eclipse Public License version 1.0, available at http://www.eclipse.org/legal/epl-v10.html -->
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:pj="http://plivo-java-ee.org/plivo-java-ee" transient="true">
+	<f:event type="preRenderView" listener="#{speakController.log()}" />
+	<pj:response>
+		<c:choose>
+			<c:when test="#{not speakController.saved}">
+				<pj:speak voice="WOMAN" language="it-IT">Lascia un messaggio dopo il beep. Premi asterisco per concludere.</pj:speak>
+				<pj:record
+					action="http://plivo-twiliofaces1.rhcloud.com/demo-speak/recordMessage.jsf"
+					maxLength="30" finishOnKey="*" />
+				<pj:speak voice="WOMAN" language="it-IT">Nessun messaggio ricevuto.</pj:speak>
+			</c:when>
+			<c:otherwise>
+				<pj:speak voice="WOMAN" language="it-IT">Arrivederci.</pj:speak>
+			</c:otherwise>
+		</c:choose>
+	</pj:response>
+</f:view>

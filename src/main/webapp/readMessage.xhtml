@@ -5,6 +5,12 @@
 	xmlns:pj="http://plivo-java-ee.org/plivo-java-ee" transient="true">
 	<f:event type="preRenderView" listener="#{speakController.log()}" />
 	<pj:response>
-		<pj:speak loop="5" voice="WOMAN">Welcome to Plivo. This is a response from answer URL. Have a nice day</pj:speak>
+		<pj:speak voice="WOMAN" language="it-IT">#{speakController.message}</pj:speak>
+		<pj:getDigits
+			action="http://plivo-twiliofaces1.rhcloud.com/demo-speak/recordMessage.jsf"
+			playBeep="true" method="POST" numDigits="1">
+			<pj:speak voice="WOMAN" language="it-IT">Premi un tasto per lasciare un messaggio.</pj:speak>
+		</pj:getDigits>
+		<pj:speak voice="WOMAN" language="it-IT">Non hai premuto nulla. Grazie lo stesso. Ciao ciao.</pj:speak>
 	</pj:response>
 </f:view>
