@@ -96,8 +96,8 @@ public class SpeakController implements Serializable {
 	public boolean isSaved() {
 		if (recordUrl != null && recordUrl.get() != null
 				&& !recordUrl.get().isEmpty()) {
-			logger.info("recording url: " + recordUrl + " - duration: "
-					+ recordingDuration);
+			logger.info("recording url: " + recordUrl.get() + " - duration: "
+					+ recordingDuration.get());
 			return true;
 		}
 		return false;
@@ -115,9 +115,12 @@ public class SpeakController implements Serializable {
 				+ (direction != null ? "direction=" + direction + ", " : "")
 				+ (billRate != null ? "billRate=" + billRate + ", " : "")
 				+ (digit != null ? "digit=" + digit + ", " : "")
-				+ (recordUrl != null ? "recordUrl=" + recordUrl + ", " : "")
-				+ (recordingDuration != null ? "recordingDuration="
-						+ recordingDuration : "") + "]";
+				+ ((recordUrl != null && recordUrl.get() != null) ? "recordUrl="
+						+ recordUrl.get() + ", "
+						: "")
+				+ ((recordingDuration != null && recordingDuration.get() != null) ? "recordingDuration="
+						+ recordingDuration.get()
+						: "") + "]";
 	}
 
 }
