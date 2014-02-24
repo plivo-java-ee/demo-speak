@@ -1,15 +1,15 @@
 package org.plivo.ee.demo.speak.controller;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.plivo.ee.helper.api.client.simple.MessageRestAPI;
-import org.plivo.ee.helper.api.response.message.MessageResponse;
+import org.plivo.ee.cdi.extension.util.Account;
+import org.plivo.ee.cdi.helper.Sender;
 import org.plivo.ee.helper.exception.PlivoException;
+import org.plivo.ee.inject.account.PlivoAccount;
 
 @SessionScoped
 @Named
@@ -20,12 +20,18 @@ public class MessageController implements Serializable {
 	static String RESULT = "/messages/result.xhtml";
 
 	private String message;
-	private String number;
-
-	private String authId = "MAOWE0YJUZYMQZNDBLNW";
-	private String authToken = "YmUyNTU1YjhmZWQ1NmQxNGVjODkwMzBhNWUzOGYw";
-	private String src = "3905221520065";
+	private String dst;
 	private String result;
+
+	private static String URL = "http://plivo-twiliofaces1.rhcloud.com/demo-speak/message.jsf";
+
+	@Inject
+	@PlivoAccount
+	Account account;
+
+	@Inject
+	@PlivoAccount(accountName = "default")
+	Sender sender;
 
 	public MessageController() {
 		// TODO Auto-generated constructor stub
@@ -33,19 +39,19 @@ public class MessageController implements Serializable {
 
 	public String sendMessage() {
 
-		MessageRestAPI messageRestAPI = new MessageRestAPI(authId, authToken);
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("text", getMessage());
-		parameters.put("src", src);
-		parameters.put("dst", getNumber());
-		parameters.put("url",
-				"http://plivo-twiliofaces1.rhcloud.com/demo-speak/message.jsf");
+		// MessageRestAPI messageRestAPI = new MessageRestAPI(authId,
+		// authToken);
+		// Map<String, String> parameters = new HashMap<String, String>();
+		// parameters.put("text", getMessage());
+		// parameters.put("src", src);
+		// parameters.put("dst", getDst());
+		// parameters.put("url", URL);
+
 		try {
-			MessageResponse messagUID = messageRestAPI.sendMessage(parameters);
-			if (messagUID != null && messagUID.getMessageUuids() != null
-					&& messagUID.getMessageUuids().size() > 0)
-				setResult(messagUID.getMessageUuids().get(0));
-			System.out.println(messagUID.getMessageUuids());
+			String messageUID = sender.url(URL).dst(getDst())
+					.text(getMessage()).send();
+			setResult(messageUID);
+			System.out.println(messageUID);
 		} catch (PlivoException e) {
 			e.printStackTrace();
 		}
@@ -61,12 +67,12 @@ public class MessageController implements Serializable {
 		this.message = message;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getDst() {
+		return dst;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setDst(String dst) {
+		this.dst = dst;
 	}
 
 	public String getResult() {
