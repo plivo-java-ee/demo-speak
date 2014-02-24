@@ -29,7 +29,7 @@ import org.plivo.ee.inject.notification.To;
 
 @Named
 @CallScoped
-public class SpeakController implements Serializable {
+public class CallController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -82,7 +82,7 @@ public class SpeakController implements Serializable {
 	@Inject
 	MessageService messageService;
 
-	public SpeakController() {
+	public CallController() {
 	}
 
 	public void log() {

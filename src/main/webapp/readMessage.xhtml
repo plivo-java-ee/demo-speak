@@ -3,14 +3,14 @@
 <f:view xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:pj="http://plivo-java-ee.org/plivo-java-ee" transient="true">
-	<f:event type="preRenderView" listener="#{speakController.log()}" />
+	<f:event type="preRenderView" listener="#{callController.log()}" />
 	<pj:response>
-		<pj:speak voice="WOMAN" language="it-IT">#{speakController.message}</pj:speak>
+		<pj:speak voice="WOMAN" language="it-IT">#{callController.message}</pj:speak>
 		<pj:getDigits
 			action="http://plivo-twiliofaces1.rhcloud.com/demo-speak/recordMessage.jsf"
 			playBeep="true" method="POST" numDigits="1">
-			<pj:speak voice="WOMAN" language="it-IT">Premi un tasto per lasciare un messaggio.</pj:speak>
+			<pj:speak voice="WOMAN" language="it-IT">Press a number to leave a message.</pj:speak>
 		</pj:getDigits>
-		<pj:speak voice="WOMAN" language="it-IT">Non hai premuto nulla. Grazie lo stesso. Ciao ciao.</pj:speak>
+		<pj:speak voice="WOMAN" language="it-IT">I didn't received any number. Bye bye.</pj:speak>
 	</pj:response>
 </f:view>

@@ -23,7 +23,7 @@ public class MessageService {
 	public String getMessage(String number) {
 		if (getMessagges().containsKey(number))
 			return getMessagges().get(number);
-		return "Non ti trovo. Non ho nulla per te...";
+		return "no message for you...";
 	}
 
 	public void setMessagges(Map<String, String> messagges) {
